@@ -1,4 +1,5 @@
 const {events} = require('./data.json')
+import {API_URL} from "@/config/index";
 
 export default function handler(req, res) {
     const evt = events.filter(ev => ev.slug === req.query.slug)
