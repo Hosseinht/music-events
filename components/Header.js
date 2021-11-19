@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Search from "@/components/Search";
 import styles from '@/styles/Header.module.css'
 
 const Header = () => {
@@ -9,6 +10,7 @@ const Header = () => {
                     <a>Music Events</a>
                 </Link>
             </div>
+            <Search/>
             <nav>
                 <ul>
                     <li>
