@@ -30,7 +30,7 @@ const EventPage =  ({evt}) => {
         <Layout>
             <div className={styles.event}>
                 <div className={styles.controls}>
-                    <Link href={`events/edit/${evt.is}`}>
+                    <Link href={`/events/edit/${evt.id}`}>
                         <a><FaPencilAlt/> Edit Event</a>
                     </Link>
                     <a href="#" className={styles.delete} onClick={deleteEvent}> <FaTimes/> Delete Event </a>
