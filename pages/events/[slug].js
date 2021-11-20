@@ -7,11 +7,16 @@ import styles from '@/styles/Event.module.css'
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useRouter} from "next/router";
+import {useState} from "react";
+import Modal from "@/components/Modal";
 
 
 const EventPage =  ({evt}) => {
     const router = useRouter()
+    const [showModal, setShowModal] = useState(false)
+    const [delEvent, setDelEvent] = useState(false)
     const deleteEvent = async (e) => {
+        setShowModal(true)
         if(confirm("Are you sure?")){
             const res = await fetch(`${API_URL}/events/${evt.id}`, {
                 method: "Delete",
@@ -58,6 +63,10 @@ const EventPage =  ({evt}) => {
                     </a>
                 </Link>
             </div>
+            {/*<Modal show={showModal} onClose={() => setShowModal(false)}>*/}
+            {/*    Are you sure?*/}
+            {/*    <button onClick={() => setDelEvent(true)} className='btn'>Delete</button>*/}
+            {/*</Modal>*/}
         </Layout>
     );
 };
