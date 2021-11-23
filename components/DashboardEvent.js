@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import {FaPencilAlt, FaTimes} from "react-icons/fa";
 import styles from '@/styles/DashboardEvent.module.css'
+import {API_URL} from "@/config/index";
+import {toast} from "react-toastify";
 
 const DashboardEvent = ({evt, handleDelete}) => {
+
     return (
         <div className={styles.event}>
             <h4><Link href={`/events/${evt.slug}`}><a>{evt.name}</a></Link></h4>

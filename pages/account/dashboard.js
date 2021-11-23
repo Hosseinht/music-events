@@ -3,11 +3,28 @@ import Layout from "@/components/Layout";
 import {API_URL} from "@/config/index";
 import styles from '@/styles/Dashboard.module.css'
 import DashboardEvent from "@/components/DashboardEvent";
+import {toast} from "react-toastify";
+import {useRouter} from "next/router";
 
-const DashboardPage = ({events}) => {
+const DashboardPage = ({events, token}) => {
+    const router = useRouter()
+    const deleteEvent = async (id) => {
+        if (confirm("Are you sure?")) {
+            const res = await fetch(`${API_URL}/events/${id}`, {
+                method: "Delete",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
 
-    const deleteEvent = (id) => {
-        console.log(id)
+            })
+            const data = await res.json()
+
+            if (!res.ok) {
+                toast.error(data.message)
+            } else {
+                router.reload()
+            }
+        }
     }
 
     return (
@@ -40,6 +57,9 @@ export async function getServerSideProps({req}) {
     const events = await res.json()
 
     return {
-        props: {events}
+        props: {
+            events,
+            token
+        }
     }
 }
