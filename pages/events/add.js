@@ -6,9 +6,10 @@ import Link from 'next/link'
 import Layout from "@/components/Layout";
 import {API_URL} from "@/config/index";
 import styles from '@/styles/Form.module.css'
+import {parseCookie} from "@/helpers/index";
 
 
-const AddEventPage = () => {
+const AddEventPage = ({token}) => {
     const [values, setValues] = useState({
         name: '',
         performers: '',
@@ -35,13 +36,18 @@ const AddEventPage = () => {
         const res = await fetch(`${API_URL}/events`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body:JSON.stringify(values)
         })
 
         if(!res.ok) {
-            toast.error("Something Went Wrong")
+            if(res.status === 403 || res.status === 401){
+                toast.error("No token included", {theme: "colored"})
+                return
+            }
+            toast.error("Something Went Wrong", {theme: "colored"})
         } else {
             const evt = await res.json()
             router.push(`/events/${evt.slug}`)
@@ -99,3 +105,14 @@ const AddEventPage = () => {
 };
 
 export default AddEventPage;
+
+
+export async function getServerSideProps({req}) {
+    const {token} = parseCookie(req)
+
+    return {
+        props: {
+            token
+        }
+    }
+}

@@ -30,13 +30,13 @@ const Header = () => {
                         </li>
                         <li>
                             <Link href={'/account/dashboard'}>
-                                <a>Dashboard</a>
+                                <a>{user.username}'s Dashboard</a>
                             </Link>
                         </li>
 
                         <li>
                             <button onClick={() => logout()} className="btn-secondary btn-icon">
-                                <FaSignOutAlt/> Logout
+                                <FaSignOutAlt/>  Logout
                             </button>
                         </li>
                     </> : <>

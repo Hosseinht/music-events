@@ -1,3 +1,4 @@
+import {parseCookie} from "@/helpers/index";
 import moment from 'moment'
 import {useState} from "react";
 import {useRouter} from "next/router";
@@ -13,7 +14,7 @@ import Image from "next/image";
 import {FaImage} from "react-icons/fa";
 
 
-const EditEventPage = ({evt}) => {
+const EditEventPage = ({evt, token}) => {
     const [values, setValues] = useState({
         name: evt.name,
         performers: evt.performers,
@@ -43,13 +44,18 @@ const EditEventPage = ({evt}) => {
         const res = await fetch(`${API_URL}/events/${evt.id}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(values)
         })
 
         if (!res.ok) {
-            toast.error("Something Went Wrong")
+            if (res.status === 403 || res.status === 401) {
+                toast.error("Unauthorized", {theme: "colored"})
+                return
+            }
+            toast.error("Something Went Wrong", {theme: "colored"})
         } else {
             const evt = await res.json()
             router.push(`/events/${evt.slug}`)
@@ -133,11 +139,15 @@ const EditEventPage = ({evt}) => {
 export default EditEventPage;
 
 export async function getServerSideProps({params: {id}, req}) {
+    const {token} = parseCookie(req)
     const res = await fetch(`${API_URL}/events/${id}`)
     const evt = await res.json()
-    console.log(req.headers.cookie)
+    // console.log(req.headers.cookie)
 
     return {
-        props: {evt}
+        props: {
+            evt,
+            token
+        }
     }
 }
