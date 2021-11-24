@@ -28,8 +28,8 @@ const Layout = ({title, keywords, description, children}) => {
 export default Layout;
 
 Layout.defaultProps = {
-    title: "Music Events | Find the hottest parties",
-    description: "Find the latest musical events",
+    title: "Meowsic Events | Find the hottest meow parties",
+    description: "Find the latest meowsical events",
     keywords: 'music, rock, pop, metal, party, events'
 }
 
