@@ -38,7 +38,7 @@ const LoginPage = () => {
                     </div>
                     <input type="submit" value="Login" className='btn'/>
                 </form>
-                <p>Don't have an account? <Link href={'/account/register'}>Register</Link></p>
+                <p>Dont have an account? <Link href={'/account/register'}>Register</Link></p>
             </div>
         </Layout>
     );

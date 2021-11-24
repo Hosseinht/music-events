@@ -11,7 +11,7 @@ const Header = () => {
         <header className={styles.header}>
             <div className={styles.logo}>
                 <Link href={'/'}>
-                    <a>Music Events</a>
+                    <a>Meowsic</a>
                 </Link>
             </div>
             <Search/>
@@ -30,7 +30,7 @@ const Header = () => {
                         </li>
                         <li>
                             <Link href={'/account/dashboard'}>
-                                <a>{user.username}'s Dashboard</a>
+                                <a>{user.username} Dashboard</a>
                             </Link>
                         </li>
 
